@@ -1,0 +1,11 @@
+{
+    "extends": "webbylab",
+    "overrides": [
+        {
+          "files": ["bin/*.js"],
+          "rules": {
+            "import/no-commonjs": "off"
+          }
+        }
+      ]
+}

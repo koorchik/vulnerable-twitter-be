@@ -1,0 +1,10 @@
+{
+  "lambda": {
+    "role": "modern-node-be-executor",
+    "name": "modern-node-be",
+    "region": "eu-central-1"
+  },
+  "api": {
+    "id": "lki2l4ymm1"
+  }
+}

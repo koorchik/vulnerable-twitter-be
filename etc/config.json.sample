@@ -1,0 +1,22 @@
+{
+    "mainUrl": "",
+    "secret":  "CHANGE_ME_OR_YOU_WILL_BE_FIRED!!!",
+    "appPort":  8080,
+
+    "staticPath": "/enter/path/to/static",
+    "testStaticPath": "./test_static",
+    "staticUrl": "/static",
+    "postImagesMaxSize": 4000000,
+
+    "mail": {
+        "from": "noreply@modern-node-be.com",
+        "transport": "SMTP",
+        "transport_options": {
+            "service": "Gmail",
+            "auth": {
+                "user": "",
+                "pass": ""
+            }
+        }
+    }
+}

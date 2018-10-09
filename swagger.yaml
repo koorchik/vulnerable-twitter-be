@@ -1,0 +1,609 @@
+swagger: '2.0'
+
+info:
+  version: "1.0.0"
+  title: Modern node be API
+
+# Describe your paths here
+host: localhost:8080
+basePath: /api/v1
+schemes:
+  - http
+
+tags:
+  - name: Actions
+  - name: Users
+  - name: Contacts
+  - name: Sessions
+  - name: Images
+  - name: Tweets
+
+paths:
+  /actions/{id}:
+    post:
+      operationId: actionsCreate
+      tags:
+        - Actions
+      description: |
+        Submit `Action` object. Used for restore password or email confirmation
+      parameters:
+        - $ref: '#/parameters/id'
+        -
+          in: body
+          name: action
+          required: true
+          description: additional data
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  password:
+                    type: string
+                    description: Uses for reset password
+                  confirmPassword:
+                    type: string
+                    description: Uses for reset password. Must be equal to password
+                  email:
+                    type: string
+                    description: Uses for confirm email
+      responses:
+        200:
+          description: Successful response
+          schema:
+            type: object
+            properties:
+                status:
+                  $ref: '#/definitions/status'
+  /users:
+    post:
+      operationId: usersCreate
+      tags:
+        - Users
+      description: |
+        Create a `User`
+      parameters:
+        -
+          in: body
+          name: userData
+          required: true
+          description: Users settings
+          schema:
+            type: object
+            required:
+              - data
+            properties:
+              data:
+                type: object
+                required:
+                  - email
+                  - password
+                properties:
+                  email:
+                    type: string
+                    format: email
+                    description: User email
+                  password:
+                    type: string
+                    description: User password
+      responses:
+        200:
+          description: Successful response
+          schema:
+            type: object
+            properties:
+                status:
+                  $ref: '#/definitions/status'
+                data:
+                  $ref: '#/definitions/User'
+    get:
+      operationId: usersList
+      tags:
+        - Users
+      description: |
+        `User` list
+      parameters:
+        - in: query
+          name: firstName
+          type: string
+        - in: query
+          name: secondName
+          type: string
+        - in: query
+          name: email
+          type: string
+        - in: query
+          name: limit
+          type: integer
+          minimum: 0
+        - in: query
+          name: offset
+          type: integer
+          minimum: 0
+        - in: query
+          name: sort
+          type: string
+          enum:
+            - id
+            - firstName
+            - secondName
+            - email
+        - in: query
+          name: order
+          type: string
+          enum:
+            - ASC
+            - DESC
+      responses:
+        200:
+          description: Successful response
+          schema:
+            type: object
+            properties:
+                status:
+                  $ref: '#/definitions/status'
+                data:
+                  type: array
+                  items:
+                    $ref: '#/definitions/User'
+                meta:
+                  $ref: '#/definitions/meta'
+      security:
+        - token: []
+  /users/{id}:
+    get:
+      operationId: usersShow
+      tags:
+        - Users
+      description: |
+        `User` show
+      parameters:
+        - $ref: '#/parameters/id'
+      responses:
+        200:
+          description: Successful response
+          schema:
+            type: object
+            properties:
+                status:
+                  type: integer
+                data:
+                  $ref: '#/definitions/User'
+      security:
+        - token: []
+    put:
+      operationId: usersUpdate
+      tags:
+        - Users
+      description: |
+        `User` update
+      parameters:
+        -
+          name: id
+          in: path
+          description: id of User
+          required: true
+          type: string
+          format: uuid
+        -
+          name: userName
+          in: body
+          required: true
+          description: additional data
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  firstName:
+                    type: string
+                  secondName:
+                    type: string
+      responses:
+        200:
+          description: Successful response
+          schema:
+            type: object
+            properties:
+                status:
+                  type: integer
+                data:
+                  $ref: '#/definitions/User'
+      security:
+        - token: []
+
+  /users/resetPassword:
+    post:
+      operationId: usersResetPassword
+      tags:
+        - Users
+      description: |
+        Reset `User` password
+      parameters:
+        -
+          in: body
+          name: resetPassword
+          required: true
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    description: User email
+      responses:
+        200:
+          description: Successful response
+          schema:
+            type: object
+            properties:
+                status:
+                  $ref: '#/definitions/status'
+  /contacts:
+    post:
+      tags:
+        - Contacts
+      description: |
+        `Email` send
+      parameters:
+        -
+          in: body
+          name: contacts
+          required: true
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  phoneNumber:
+                    type: string
+                  email:
+                    type: string
+                  website:
+                    type: string
+                  solution:
+                    type: string
+                  timeframe:
+                    type: string
+                  additional:
+                    type: string
+      responses:
+        200:
+          description: Successful response
+          schema:
+            type: object
+            properties:
+              status:
+                $ref: '#/definitions/status'
+  /sessions:
+    post:
+      tags:
+        - Sessions
+      description: |
+        Create a `Session`
+      parameters:
+        -
+          in: body
+          name: sessions
+          required: true
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    description: User email
+                  password:
+                    type: string
+                    description: User password
+      responses:
+        200:
+          description: Successful response
+          schema:
+            type: object
+            properties:
+                status:
+                  $ref: '#/definitions/status'
+                data:
+                  type: object
+                  properties:
+                    jwt:
+                      $ref: '#/definitions/jwt'
+  /images:
+    post:
+      tags:
+        - Images
+      description: |
+        Create a `Image`
+      consumes: ['multipart/form-data']
+      parameters:
+        -
+          name: image
+          in: formData
+          required: true
+          type: file
+      responses:
+        200:
+          description: Successful response
+          schema:
+            type: object
+            properties:
+                status:
+                  $ref: '#/definitions/status'
+                data:
+                  type: object
+                  properties:
+                    id:
+                      $ref: '#/definitions/id'
+                    imageUrl:
+                      type: string
+      security:
+        - token: []
+
+  /tweets:
+    get:
+      tags:
+        - Tweets
+      description: |
+        `Tweets` list
+      parameters:
+        - in: query
+          name: limit
+          type: integer
+          minimum: 0
+        - in: query
+          name: offset
+          type: integer
+          minimum: 0
+        - in: query
+          name: sort
+          type: string
+          enum:
+            - id
+            - createdAt
+        - in: query
+          name: order
+          type: string
+          enum:
+            - ASC
+            - DESC
+      responses:
+        200:
+          description: Successful response
+          schema:
+            type: object
+            properties:
+                status:
+                  $ref: '#/definitions/status'
+                data:
+                  type: array
+                  items:
+                    $ref: '#/definitions/Tweets'
+                meta:
+                  $ref: '#/definitions/meta'
+
+    post:
+      tags:
+        - Tweets
+      description: |
+        Create a `Tweets`
+      parameters:
+        -
+          in: body
+          name: tweets
+          required: true
+          description: Users settings
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  title:
+                    type: string
+                  subtitle:
+                    type: string
+                  text:
+                    type: string
+                  image:
+                    type: string
+      responses:
+        200:
+          description: Successful response
+          schema:
+            type: object
+            properties:
+                status:
+                  $ref: '#/definitions/status'
+                data:
+                  $ref: '#/definitions/Tweets'
+      security:
+        - token: []
+
+  /tweets/{id}:
+    get:
+      tags:
+        - Tweets
+      description: |
+        `Tweets` show
+      parameters:
+        -
+          name: id
+          in: path
+          description: id of Tweets
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: Successful response
+          schema:
+            type: object
+            properties:
+                status:
+                  type: integer
+                data:
+                  $ref: '#/definitions/Tweets'
+    put:
+      tags:
+        - Tweets
+      description: |
+        `Tweets` update
+      parameters:
+        -
+          name: id
+          in: path
+          description: id of Tweets
+          required: true
+          type: string
+          format: uuid
+        -
+          name: tweetData
+          in: body
+          required: true
+          description: additional data
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  title:
+                    type: string
+                  subtitle:
+                    type: string
+                  text:
+                    type: string
+                  image:
+                    type: string
+                  isPublished:
+                    type: boolean
+      responses:
+        200:
+          description: Successful response
+          schema:
+            type: object
+            properties:
+                status:
+                  type: integer
+                data:
+                  $ref: '#/definitions/Tweets'
+      security:
+        - token: []
+
+    delete:
+      tags:
+        - Tweets
+      description: |
+        `Tweets` delete
+      parameters:
+        -
+          name: id
+          in: path
+          description: id of Tweets
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: Successful response
+          schema:
+            type: object
+            properties:
+                status:
+                  $ref: '#/definitions/status'
+      security:
+        - token: []
+
+securityDefinitions:
+  token:
+    type: apiKey
+    description: JSON Web Token
+    in: query
+    name: token
+
+
+definitions:
+  User:
+    type: object
+    properties:
+      id:
+        $ref: '#/definitions/id'
+      status:
+        type: string
+        enum:
+          - PENDING
+          - ACTIVE
+          - BLOCKED
+      email:
+        type: string
+      firstName:
+        type: string
+      secondName:
+        type: string
+      createdAt:
+        type: string
+
+  Tweets:
+    type: object
+    properties:
+      id:
+        $ref: '#/definitions/id'
+      title:
+        type: string
+      subtitle:
+        type: string
+      text:
+        type: string
+      image:
+        type: string
+      isPublished:
+        type: boolean
+      cratedAt:
+        type: string
+
+  id:
+    type: string
+    format: uuid
+
+  status:
+    type: integer
+    enum:
+      - 0
+      - 1
+
+  jwt:
+    type: string
+    format: jwt
+    description: JSON Web Token
+
+  meta:
+    type: object
+    properties:
+      totalCount:
+        type: integer
+      filteredCount:
+        type: integer
+      limit:
+        type: integer
+      offset:
+        type: integer
+
+
+parameters:
+  id:
+    name: id
+    in: path
+    description: unique identifier
+    required: true
+    type: string
+    format: uuid
