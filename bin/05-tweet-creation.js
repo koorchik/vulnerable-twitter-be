@@ -4,7 +4,7 @@ const argv = require('optimist')
     .usage('Usage: $0 --email [test@mail.com] --password')
     .demand(['email', 'password']).argv;
 
-const APP_URL = 'http://localhost:8080';
+const APP_URL = 'http://localhost:8081';
 
 async function main({ email, password }) {
     const token = await createSession({ email, password });

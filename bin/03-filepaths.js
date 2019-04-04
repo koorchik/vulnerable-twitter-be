@@ -4,7 +4,7 @@ const argv = require('optimist')
     .usage('Usage: $0 --email [test@mail.com]')
     .demand(['email']).argv;
 
-const APP_URL = 'http://localhost:8080';
+const APP_URL = 'http://localhost:8081';
 
 async function main({ email }) {
     const config = await fetchConfig();

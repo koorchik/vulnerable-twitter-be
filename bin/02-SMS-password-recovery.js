@@ -14,7 +14,7 @@ const progressBar = new _cliProgress.Bar({ barsize: 120 }, {
     barIncompleteChar: '\u2591'
 });
 
-const APP_URL = 'http://localhost:8080/api/v1/';
+const APP_URL = 'http://localhost:8081/api/v1/';
 
 async function createAction(email) {
     const { data } = await axios.post(`${APP_URL}users/resetPasswordBySMS`, {

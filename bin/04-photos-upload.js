@@ -7,7 +7,7 @@ const argv = require('optimist')
     .argv;
 
 const request = require('request');
-const APP_URL = 'http://localhost:8080';
+const APP_URL = 'http://localhost:8081';
 
 async function main(args) {
     const token = await createSession(args.email, args.password);

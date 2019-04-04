@@ -1,7 +1,7 @@
 {
     "mainUrl": "",
     "secret":  "CHANGE_ME_OR_YOU_WILL_BE_FIRED!!!",
-    "appPort":  8080,
+    "appPort":  8081,
 
     "staticPath": "/enter/path/to/static",
     "testStaticPath": "./test_static",
