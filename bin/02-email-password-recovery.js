@@ -43,9 +43,9 @@ function formatIdPart(dec, length) {
 function createId({ seconds, machineId, processId, counter }) {
     return (
         formatIdPart(seconds, 8) +
-    formatIdPart(machineId, 6) +
-    formatIdPart(processId, 4) +
-    formatIdPart(counter, 6)
+        formatIdPart(machineId, 6) +
+        formatIdPart(processId, 4) +
+        formatIdPart(counter, 6)
     );
 }
 

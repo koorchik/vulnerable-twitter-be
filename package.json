@@ -25,7 +25,7 @@
     "update-lambda ": "claudia update --handler lambda.handler --deploy-proxy-api --region eu-central-1 --role modern-node-be-executor --aws-client-timeout 1200000 --set-env-from-json lambda.env.json"
   },
   "pre-commit": [
-    "test:lint"
+    // "test:lint"
   ],
   "dependencies": {
     "aws-serverless-express": "^3.1.3",

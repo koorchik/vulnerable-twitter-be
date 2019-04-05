@@ -38,7 +38,7 @@ async function createTweet({token}) {
         }
     });
 
-    console.log(data);
+    // console.log(data);
 
     if (!data.status) throw 'Create document error.';
 

