@@ -16,8 +16,8 @@
       "port": "3306"
   },
   "production": {
-      "username": "username",
-      "password": "password",
+      "username": "root",
+      "password": "",
       "database": "twitter",
       "host": "127.0.0.1",
       "dialect": "mysql",

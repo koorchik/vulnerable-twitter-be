@@ -23,6 +23,7 @@ async function main(args) {
 
 async function fetchConfig(id) {
     const url = `${APP_URL}/static/${id}/avatar`;
+
     const resp = await axios.get(url);
     return resp.data;
 }

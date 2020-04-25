@@ -16,7 +16,9 @@ Options:
    -d --drop                 Drop database first.
 `;
 
-main(docopt(doc));
+main(docopt(doc)).then(() => {
+    process.exit();
+});
 
 async function dropAllUsers() {
     await User.destroy({ where: {} });
