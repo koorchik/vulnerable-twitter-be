@@ -70,7 +70,7 @@
     "rimraf": "^2.6.2",
     "sequelize": "^4.37.4",
     "sequelize-cli": "^4.0.0",
-    "st": "^0.2.3",
+    "st": "^1.2.2",
     "uuid": "^3.2.1",
     "uuid-validate": "0.0.2",
     "webpack": "^4.4.1",
