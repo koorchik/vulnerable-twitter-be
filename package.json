@@ -47,7 +47,7 @@
     "cli-progress": "^2.1.0",
     "connect-multiparty": "^2.1.0",
     "cors": "^2.8.4",
-    "decompress": "^4.2.0",
+    "decompress": "^4.2.1",
     "docopt": "^0.6.2",
     "escape-regexp": "^0.0.1",
     "express": "^4.16.3",
