@@ -57,7 +57,7 @@
     "json-pointer": "^0.6.0",
     "jsonwebtoken": "^8.2.0",
     "livr": "^2.0.2",
-    "moment": "^2.21.0",
+    "moment": "^2.29.2",
     "mysql2": "^1.5.3",
     "nodemailer": "^4.6.3",
     "nodemailer-sendmail-transport": "^1.0.2",
